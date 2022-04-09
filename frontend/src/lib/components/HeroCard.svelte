@@ -144,69 +144,83 @@
 			NEXT LEVEL UP: {new Date(heroInfo.nextLevel.toNumber() * 1000).toLocaleDateString('en-UK')}
 		</text>
 		<image x="81" y="134" width="38" height="57.5" href={hero} />
-		<a href="/equipment/{heroInfo.helmet.toString()}">
-			<image
-				x="37.4"
-				y="136.4"
-				width="16"
-				height="16"
-				href={`${imgSrc}/equipments/${heroInfo.helmet.toString()}.png`}
-			/>
-		</a>
-		<a href="/equipment/{heroInfo.chest.toString()}">
-			<image
-				x="37.4"
-				y="175.4"
-				width="16"
-				height="16"
-				href={`${imgSrc}/equipments/${heroInfo.chest.toString()}.png`}
-			/>
-		</a>
-		<a href="/equipment/{heroInfo.gauntlets.toString()}">
-			<image
-				x="37.6"
-				y="213.4"
-				width="16"
-				height="16"
-				href={`${imgSrc}/equipments/${heroInfo.gauntlets.toString()}.png`}
-			/>
-		</a>
-		<a href="/equipment/{heroInfo.legs.toString()}">
-			<image
-				x="92.3"
-				y="213.4"
-				width="16"
-				height="16"
-				href={`${imgSrc}/equipments/${heroInfo.legs.toString()}.png`}
-			/>
-		</a>
-		<a href="/equipment/{heroInfo.weapon.toString()}">
-			<image
-				x="145.8"
-				y="213.4"
-				width="16"
-				height="16"
-				href={`${imgSrc}/equipments/${heroInfo.weapon.toString()}.png`}
-			/>
-		</a>
-		<a href="/equipment/{heroInfo.talisman.toString()}">
-			<image
-				x="145.8"
-				y="175.1"
-				width="16"
-				height="16"
-				href={`${imgSrc}/equipments/${heroInfo.talisman.toString()}.png`}
-			/>
-		</a>
-		<a href="/equipment/{heroInfo.ring.toString()}">
-			<image
-				x="145.8"
-				y="135.8"
-				width="16"
-				height="16"
-				href={`${imgSrc}/equipments/${heroInfo.ring.toString()}.png`}
-			/>
-		</a>
+		{#if heroInfo.helmet.toString() !== '0'}
+			<a href="/equipment/{heroInfo.helmet.toString()}">
+				<image
+					x="37.4"
+					y="136.4"
+					width="16"
+					height="16"
+					href={`${imgSrc}/equipments/${heroInfo.helmet.toString()}.png`}
+				/>
+			</a>
+		{/if}
+		{#if heroInfo.chest.toString() !== '0'}
+			<a href="/equipment/{heroInfo.chest.toString()}">
+				<image
+					x="37.4"
+					y="175.4"
+					width="16"
+					height="16"
+					href={`${imgSrc}/equipments/${heroInfo.chest.toString()}.png`}
+				/>
+			</a>
+		{/if}
+		{#if heroInfo.gauntlets.toString() !== '0'}
+			<a href="/equipment/{heroInfo.gauntlets.toString()}">
+				<image
+					x="37.6"
+					y="213.4"
+					width="16"
+					height="16"
+					href={`${imgSrc}/equipments/${heroInfo.gauntlets.toString()}.png`}
+				/>
+			</a>
+		{/if}
+		{#if heroInfo.legs.toString() !== '0'}
+			<a href="/equipment/{heroInfo.legs.toString()}">
+				<image
+					x="92.3"
+					y="213.4"
+					width="16"
+					height="16"
+					href={`${imgSrc}/equipments/${heroInfo.legs.toString()}.png`}
+				/>
+			</a>
+		{/if}
+		{#if heroInfo.weapon.toString() !== '0'}
+			<a href="/equipment/{heroInfo.weapon.toString()}">
+				<image
+					x="145.8"
+					y="213.4"
+					width="16"
+					height="16"
+					href={`${imgSrc}/equipments/${heroInfo.weapon.toString()}.png`}
+				/>
+			</a>
+		{/if}
+		{#if heroInfo.talisman.toString() !== '0'}
+			<a href="/equipment/{heroInfo.talisman.toString()}">
+				<image
+					x="145.8"
+					y="175.1"
+					width="16"
+					height="16"
+					href={`${imgSrc}/equipments/${heroInfo.talisman.toString()}.png`}
+				/>
+			</a>
+		{/if}
+		{#if heroInfo.ring.toString() !== '0'}
+			<a href="/equipment/{heroInfo.ring.toString()}">
+				<image
+					x="145.8"
+					y="135.8"
+					width="16"
+					height="16"
+					href={`${imgSrc}/equipments/${heroInfo.ring.toString()}.png`}
+				/>
+			</a>
+		{/if}
 		<text x="101" y="255.7" class="text text-right" font-size="4" fill="white">
 			{heroInfo.maxHealth.toNumber() + 100}
 		</text>

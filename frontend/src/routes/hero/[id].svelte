@@ -11,7 +11,7 @@
 <div class="flex flex-col justify-center items-center p-4 bg-base-200">
 	<h1 class="font-bold text-5xl pb-4">HERO #{id}</h1>
 	<div
-		class="flex flex-col md:flex-row justify-center items-center gap-4 p-10 container border-2 rounded-xl bg-base-100 max-w-5xl shadow-lg"
+		class="flex flex-col md:flex-row justify-center items-center gap-4 p-10 container border-2 rounded-xl bg-base-100 max-w-7xl shadow-lg"
 	>
 		{#if $address !== undefined}
 			<div class="h-full w-full">
