@@ -9,7 +9,7 @@
 
   onMount(() => {
     html = document.querySelector("html")
-    setTimeout(updateTheme, 100)
+    setTimeout(updateTheme, 1000)
   })
 
   function updateTheme() {

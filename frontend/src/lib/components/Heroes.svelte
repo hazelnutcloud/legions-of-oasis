@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { address, web3 } from '$lib/ethers';
-	import { balances, error } from '$lib/stores';
+	import { balances, error, hasError } from '$lib/stores';
 	import ConnectWallet from './ConnectWallet.svelte';
 	import HeroCard from './HeroCard.svelte';
 	import Inventory from './Inventory.svelte';
@@ -12,13 +12,14 @@
 		const queries = [];
 		try {
 			for (let i = 0; i < $balances.hero.toNumber(); i++) {
-				const query = legions.tokenOfOwnerByIndex($address, i)
+				const query = legions.tokenOfOwnerByIndex($address, i);
 				queries.push(query);
 			}
-			const result = await Promise.all(queries)
-			$balances.heroIds = result.map(r => r.toNumber());
+			const result = await Promise.all(queries);
+			$balances.heroIds = result.map((r) => r.toNumber());
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -41,7 +42,9 @@
 	{:else}
 		<div class="flex justify-center items-center gap-20 flex-wrap p-10 gap-y-4 min-h-screen">
 			{#each $balances.heroIds as heroId}
-				<HeroCard id={heroId} />
+				<a href="/hero/{heroId}" sveltekit:prefetch>
+					<HeroCard id={heroId} />
+				</a>
 			{/each}
 		</div>
 	{/if}

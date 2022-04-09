@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { address, web3 } from '$lib/ethers';
 	import { batchUpdateData, toFixed } from '$lib/helpers';
-	import { allowances, balances, error } from '$lib/stores';
+	import { allowances, balances, error, hasError } from '$lib/stores';
 	import { BigNumber, ethers } from 'ethers';
 	import { onMount } from 'svelte';
 	import ConnectWallet from './ConnectWallet.svelte';
@@ -19,29 +19,29 @@
 		await batchUpdateData([
 			{
 				store: balances,
-				key: "prestige",
+				key: 'prestige',
 				callback: prstg.balanceOf,
 				params: [$address]
 			},
 			{
 				store: balances,
-				key: "rose",
+				key: 'rose',
 				callback: rose.balanceOf,
 				params: [$address]
 			},
 			{
 				store: allowances,
-				key: "prestige",
+				key: 'prestige',
 				callback: prstg.allowance,
 				params: [$address, router.address]
 			},
 			{
 				store: allowances,
-				key: "rose",
+				key: 'rose',
 				callback: rose.allowance,
 				params: [$address, router.address]
 			}
-		])
+		]);
 	};
 
 	const getAmountOut = async () => {
@@ -58,6 +58,7 @@
 			} catch (e) {
 				insufficientLiquidity = true;
 				$error.push(e);
+				$hasError = true;
 			}
 		}
 	};
@@ -69,6 +70,7 @@
 				$allowances.rose = ethers.constants.MaxUint256;
 			} catch (e) {
 				$error.push(e);
+				$hasError = true;
 			}
 		} else {
 			try {
@@ -76,6 +78,7 @@
 				$allowances.prestige = ethers.constants.MaxUint256;
 			} catch (e) {
 				$error.push(e);
+				$hasError = true;
 			}
 		}
 	};
@@ -89,10 +92,11 @@
 				$address,
 				(Date.now() + 10).toString()
 			);
-			await tx.wait()
-			updateBalances()
+			await tx.wait();
+			updateBalances();
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 

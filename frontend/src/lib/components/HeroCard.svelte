@@ -8,7 +8,7 @@
 	import card from '/static/hero/card.png';
 	import hero from '/static/hero/hero1.gif';
 
-	export let id
+	export let id;
 
 	let legions;
 	let heroManager;
@@ -101,7 +101,6 @@
 </script>
 
 {#if !loading}
-<a href="/hero/{id}" sveltekit:prefetch>
 	<svg
 		width="398"
 		height="800"
@@ -144,55 +143,69 @@
 			NEXT LEVEL UP: {new Date(heroInfo.nextLevel.toNumber() * 1000).toLocaleDateString('en-UK')}
 		</text>
 		<image x="81" y="134" width="38" height="57.5" href={hero} />
-		<image
-			x="37.4"
-			y="136.4"
-			width="16"
-			height="16"
-			href="/static/equipments/{heroInfo.helmet.toString()}.png"
-		/>
-		<image
-			x="37.4"
-			y="175.4"
-			width="16"
-			height="16"
-			href="/static/equipments/{heroInfo.chest.toString()}.png"
-		/>
-		<image
-			x="37.6"
-			y="213.4"
-			width="16"
-			height="16"
-			href="/static/equipments/{heroInfo.gauntlets.toString()}.png"
-		/>
-		<image
-			x="92.3"
-			y="213.4"
-			width="16"
-			height="16"
-			href="/static/equipments/{heroInfo.legs.toString()}.png"
-		/>
-		<image
-			x="145.8"
-			y="213.4"
-			width="16"
-			height="16"
-			href="/static/equipments/{heroInfo.weapon.toString()}.png"
-		/>
-		<image
-			x="145.8"
-			y="175.1"
-			width="16"
-			height="16"
-			href="/static/equipments/{heroInfo.talisman.toString()}.png"
-		/>
-		<image
-			x="145.8"
-			y="135.8"
-			width="16"
-			height="16"
-			href="/static/equipments/{heroInfo.ring.toString()}.png"
-		/>
+		<a href="/equipment/{heroInfo.helmet.toString()}">
+			<image
+				x="37.4"
+				y="136.4"
+				width="16"
+				height="16"
+				href="/static/equipments/{heroInfo.helmet.toString()}.png"
+			/>
+		</a>
+		<a href="/equipment/{heroInfo.chest.toString()}">
+			<image
+				x="37.4"
+				y="175.4"
+				width="16"
+				height="16"
+				href="/static/equipments/{heroInfo.chest.toString()}.png"
+			/>
+		</a>
+		<a href="/equipment/{heroInfo.gauntlets.toString()}">
+			<image
+				x="37.6"
+				y="213.4"
+				width="16"
+				height="16"
+				href="/static/equipments/{heroInfo.gauntlets.toString()}.png"
+			/>
+		</a>
+		<a href="/equipment/{heroInfo.legs.toString()}">
+			<image
+				x="92.3"
+				y="213.4"
+				width="16"
+				height="16"
+				href="/static/equipments/{heroInfo.legs.toString()}.png"
+			/>
+		</a>
+		<a href="/equipment/{heroInfo.weapon.toString()}">
+			<image
+				x="145.8"
+				y="213.4"
+				width="16"
+				height="16"
+				href="/static/equipments/{heroInfo.weapon.toString()}.png"
+			/>
+		</a>
+		<a href="/equipment/{heroInfo.talisman.toString()}">
+			<image
+				x="145.8"
+				y="175.1"
+				width="16"
+				height="16"
+				href="/static/equipments/{heroInfo.talisman.toString()}.png"
+			/>
+		</a>
+		<a href="/equipment/{heroInfo.ring.toString()}">
+			<image
+				x="145.8"
+				y="135.8"
+				width="16"
+				height="16"
+				href="/static/equipments/{heroInfo.ring.toString()}.png"
+			/>
+		</a>
 		<text x="101" y="255.7" class="text text-right" font-size="4" fill="white">
 			{heroInfo.maxHealth.toNumber() + 100}
 		</text>
@@ -233,7 +246,6 @@
 			{heroInfo.holyAtk.toNumber()}/{heroInfo.holyRes.toNumber()}
 		</text>
 	</svg>
-</a>
 {:else}
 	<div class="h-full w-full flex justify-center items-center">loading...</div>
 {/if}

@@ -3,7 +3,7 @@
 
 	import equipmentList from '$lib/equipmentList.json';
 	import { address, web3 } from '$lib/ethers';
-	import { balances, error } from '$lib/stores';
+	import { balances, error, hasError } from '$lib/stores';
 	import { BigNumber } from 'ethers';
 
 	export let id;
@@ -12,7 +12,10 @@
 	let legions;
 	let balance = BigNumber.from(0);
 	let selectedHero;
+	let selectedHeroUnequip;
 	let allowance = false;
+	let equippedOn = [];
+	let hasEquipped = false;
 
 	const equip = async () => {
 		try {
@@ -21,6 +24,19 @@
 			updateData();
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
+		}
+	};
+
+	const unequip = async () => {
+		try {
+			const tx = await heroManager.unequipItem(selectedHeroUnequip, equipment.slot);
+			await tx.wait();
+			hasEquipped = false
+			updateData();
+		} catch (e) {
+			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -31,6 +47,7 @@
 			allowance = true;
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -44,6 +61,17 @@
 			}
 			const result = await Promise.all(queries);
 			$balances.heroIds = result.map((r) => r.toNumber());
+
+			for (let i = 0; i < $balances.heroIds.length; i++) {
+				const equipped = await heroManager.getEquipmentForHeroAt(
+					equipment.slot,
+					$balances.heroIds[i]
+				);
+				if (equipped.toString() === id) {
+					equippedOn.push($balances.heroIds[i]);
+					hasEquipped = true;
+				}
+			}
 		}
 		allowance = await heroManager.isApprovedForAll($address, heroManager.address);
 		balance = await heroManager.balanceOf($address, id);
@@ -62,7 +90,7 @@
 	<div
 		class="container max-w-5xl border-2 bg-base-100 flex flex-col justify-center items-center p-4 gap-4 min-h-screen rounded-xl shadow-lg"
 	>
-		<div class="p-4 rounded-lg border-2 bg-base-300 w-40 h-40 shadow-md">
+		<div class="p-4 rounded-lg border-2 bg-base-300 w-40 h-40 shadow-lg">
 			<img src={`${imgSrc}equipments/${id}.png`} alt="item" class="w-full pixelated" />
 		</div>
 		<div
@@ -104,6 +132,19 @@
 					</div>
 				{/if}
 				{equipment.name}'s in your inventory: {balance.toString()}
+				<div class="divider" />
+				{#if hasEquipped}
+					<h2 class="font-semibold text-center">Unequip from your hero</h2>
+					<div class="input-group max-w-max">
+						<select class="select select-bordered" bind:value={selectedHeroUnequip}>
+							<option disabled selected>Choose a Hero</option>
+							{#each equippedOn as hero}
+								<option value={hero}>{hero}</option>
+							{/each}
+						</select>
+						<button class="btn btn-primary" on:click={() => unequip()}>Unequip</button>
+					</div>
+				{/if}
 			{/if}
 		</div>
 	</div>

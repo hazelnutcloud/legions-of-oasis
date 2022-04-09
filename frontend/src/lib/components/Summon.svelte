@@ -1,7 +1,7 @@
 <script>
 	import { address, web3 } from '$lib/ethers';
 	import { toFixed, batchUpdateData } from '$lib/helpers';
-	import { allowances, balances, error } from '$lib/stores';
+	import { allowances, balances, error, hasError } from '$lib/stores';
 	import { BigNumber, ethers } from 'ethers';
 	import { onMount } from 'svelte';
 	import ConnectWallet from './ConnectWallet.svelte';
@@ -50,6 +50,7 @@
 			$balances.heroIds = result.map((r) => r.toNumber());
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -59,11 +60,11 @@
 			$allowances.prstgRose = ethers.constants.MaxUint256;
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
-	$: if (
-		$address !== undefined) {
+	$: if ($address !== undefined) {
 		prstgRose = web3.contract('UniswapV2Pair');
 		legions = web3.contract('Legions');
 		updateData();
@@ -76,7 +77,9 @@
 
 <div class="flex flex-col justify-center items-center bg-base-200 p-4">
 	<h1 class="font-bold text-5xl pb-4 text-center">THE SUMMONING</h1>
-	<div class="flex flex-col justify-center items-center min-h-screen p-4 bg-base-100 container max-w-5xl rounded-xl border-2 shadow-lg">
+	<div
+		class="flex flex-col justify-center items-center min-h-screen p-4 bg-base-100 container max-w-5xl rounded-xl border-2 shadow-lg"
+	>
 		<img src={hero} alt="hero" class="lg:max-h-96 max-h-60 mb-10" />
 		<div class="container max-w-lg flex flex-col gap-4 justify-center items-center ">
 			<a href="/heroes" class="font-semibold link link-hover">heroes in inventory: {heroBalance}</a>

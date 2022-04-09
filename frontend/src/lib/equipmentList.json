@@ -4,48 +4,55 @@
         "requiredAttributes": ["STR"],
         "requiredAttributeValues": [2],
         "boostedAttributes": ["Physical Res"],
-        "boostedAttributeValues": [5]
+        "boostedAttributeValues": [5],
+        "slot": 0
     },
     "2" : {
         "name": "Leather Chestplate",
         "requiredAttributes": ["STR"],
         "requiredAttributeValues": [2],
         "boostedAttributes": ["Physical Res"],
-        "boostedAttributeValues": [10]
+        "boostedAttributeValues": [10],
+        "slot": 1
     },
     "3" : {
         "name": "Leather Greaves",
         "requiredAttributes": ["STR"],
         "requiredAttributeValues": [2],
         "boostedAttributes": ["Physical Res"],
-        "boostedAttributeValues": [4]
+        "boostedAttributeValues": [4],
+        "slot": 2
     },
     "4" : {
         "name": "Leather Boots",
         "requiredAttributes": ["STR"],
         "requiredAttributeValues": [2],
         "boostedAttributes": ["Physical Res"],
-        "boostedAttributeValues": [8]
+        "boostedAttributeValues": [8],
+        "slot": 3
     },
     "5" : {
         "name": "Wooden Sword",
         "requiredAttributes": ["STR"],
         "requiredAttributeValues": [2],
         "boostedAttributes": ["Physical Atk"],
-        "boostedAttributeValues": [10]
+        "boostedAttributeValues": [10],
+        "slot": 4
     },
     "6" : {
         "name": "Strength Talisman +1",
         "requiredAttributes": ["STR"],
         "requiredAttributeValues": [1],
         "boostedAttributes": ["Strength"],
-        "boostedAttributeValues": [1]
+        "boostedAttributeValues": [1],
+        "slot": 5
     },
     "7" : {
         "name": "Vitality Ring +1",
         "requiredAttributes": ["STR"],
         "requiredAttributeValues": [2],
         "boostedAttributes": ["Max Health", "Max Stamina"],
-        "boostedAttributeValues": [20, 10]
+        "boostedAttributeValues": [20, 10],
+        "slot": 6
     }
 }

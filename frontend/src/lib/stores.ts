@@ -58,6 +58,7 @@ export interface IHeroInfo {
 }
 
 export const error: Writable<any> = writable([])
+export const hasError: Writable<boolean> = writable(false)
 export const balances: Writable<IBalances> = writable({
   rose: undefined,
   prestige: undefined,

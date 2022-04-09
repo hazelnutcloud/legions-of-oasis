@@ -1,10 +1,10 @@
 <script>
 	import campaignList from '$lib/campaignList.json';
-import { imgSrc } from '$lib/constants';
+	import { imgSrc } from '$lib/constants';
 	import equipmentList from '$lib/equipmentList.json';
 	import { address, web3 } from '$lib/ethers';
 	import { secondsToReadable } from '$lib/helpers';
-	import { balances, error } from '$lib/stores';
+	import { balances, error, hasError } from '$lib/stores';
 	import { onMount } from 'svelte';
 	import ConnectWallet from './ConnectWallet.svelte';
 
@@ -28,6 +28,7 @@ import { imgSrc } from '$lib/constants';
 			updateData();
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -38,6 +39,7 @@ import { imgSrc } from '$lib/constants';
 			updateData();
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -48,6 +50,7 @@ import { imgSrc } from '$lib/constants';
 			updateData();
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -58,6 +61,7 @@ import { imgSrc } from '$lib/constants';
 			campaignApproval = true;
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -71,14 +75,19 @@ import { imgSrc } from '$lib/constants';
 			}
 			const result = await Promise.all(queries);
 			$balances.heroIds = result.map((r) => r.toNumber());
-			const _heroesEnlisted = (await campaignContract.getAllEnlistedHeroes($address)).map(n => n.toNumber());
-			heroesFinished = (await campaignContract.getAllFinishedHeroes($address)).map(n => n.toNumber());
+			const _heroesEnlisted = (await campaignContract.getAllEnlistedHeroes($address)).map((n) =>
+				n.toNumber()
+			);
+			heroesFinished = (await campaignContract.getAllFinishedHeroes($address)).map((n) =>
+				n.toNumber()
+			);
 			heroesEnlisted = _heroesEnlisted.filter((h) => {
 				return !heroesFinished.includes(h);
 			});
 			campaignApproval = await legions.isApprovedForAll($address, campaignContract.address);
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -103,7 +112,7 @@ import { imgSrc } from '$lib/constants';
 	<h1 class="font-bold text-5xl text-center">CAMPAIGN #{id}: "{campaign.name.toUpperCase()}"</h1>
 	<div
 		class="container max-w-5xl rounded-xl bg-base-100 border-2 p-4 shadow-lg min-h-screen flex flex-col md:flex-row justify-center items-center gap-4"
-    class:md:flex-col={$address===undefined}
+		class:md:flex-col={$address === undefined}
 	>
 		<div>
 			<h2 class="font-semibold text-xl text-center pb-4">Rewards</h2>

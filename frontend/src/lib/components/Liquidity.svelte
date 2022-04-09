@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { address, web3 } from '$lib/ethers';
 	import { batchUpdateData, toFixed } from '$lib/helpers';
-	import { allowances, balances, error } from '$lib/stores';
+	import { allowances, balances, error, hasError } from '$lib/stores';
 	import { BigNumber, ethers } from 'ethers';
 	import { onMount } from 'svelte';
 	import ConnectWallet from './ConnectWallet.svelte';
@@ -17,64 +17,70 @@
 		await batchUpdateData([
 			{
 				store: balances,
-				key: "prestige",
+				key: 'prestige',
 				callback: prstg.balanceOf,
 				params: [$address]
 			},
 			{
 				store: balances,
-				key: "rose",
+				key: 'rose',
 				callback: rose.balanceOf,
 				params: [$address]
 			},
 			{
 				store: balances,
-				key: "prstgRose",
+				key: 'prstgRose',
 				callback: prstgRose.balanceOf,
 				params: [$address]
 			},
 			{
 				store: allowances,
-				key: "prestige",
+				key: 'prestige',
 				callback: prstg.allowance,
 				params: [$address, router.address]
 			},
 			{
 				store: allowances,
-				key: "rose",
+				key: 'rose',
 				callback: rose.allowance,
 				params: [$address, router.address]
-			},
-		])
-	}
+			}
+		]);
+	};
 
 	const updateRoseIn = async () => {
 		if ($address !== undefined) {
 			try {
 				const [prstgReserves, roseReserves] = await prstgRose.getReserves();
 				if (prstgReserves.gt(0) || roseReserves.gt(0)) {
-					const ratio = Number(ethers.utils.formatEther(roseReserves)) / Number(ethers.utils.formatEther(prstgReserves))
+					const ratio =
+						Number(ethers.utils.formatEther(roseReserves)) /
+						Number(ethers.utils.formatEther(prstgReserves));
 					desiredRose = (Number(desiredPrstg) * ratio).toString();
 				}
 			} catch (e) {
 				$error.push(e);
+				$hasError = true;
 			}
 		}
-	}
+	};
 
 	const updatePrstgIn = async () => {
 		if ($address !== undefined) {
 			try {
 				const [prstgReserves, roseReserves] = await prstgRose.getReserves();
 				if (prstgReserves.gt(0) || roseReserves.gt(0)) {
-					const ratio = Number(ethers.utils.formatEther(prstgReserves)) / Number(ethers.utils.formatEther(roseReserves))
+					const ratio =
+						Number(ethers.utils.formatEther(prstgReserves)) /
+						Number(ethers.utils.formatEther(roseReserves));
 					desiredPrstg = (Number(desiredRose) * ratio).toString();
 				}
 			} catch (e) {
 				$error.push(e);
+				$hasError = true;
 			}
 		}
-	}
+	};
 
 	const approveRose = async () => {
 		try {
@@ -82,6 +88,7 @@
 			$allowances.rose = ethers.constants.MaxUint256;
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -91,6 +98,7 @@
 			$allowances.prestige = ethers.constants.MaxUint256;
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -106,10 +114,11 @@
 				$address,
 				(Date.now() + 10).toString()
 			);
-			await tx.wait()
-			updateBalances()
+			await tx.wait();
+			updateBalances();
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -120,6 +129,7 @@
 			$balances.rose = amount;
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -130,6 +140,7 @@
 			$balances.prestige = amount;
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -173,7 +184,10 @@
 				on:change={() => updateRoseIn()}
 			/>
 			<span
-				on:click={() => {desiredPrstg = prstgBalance; updateRoseIn()}}
+				on:click={() => {
+					desiredPrstg = prstgBalance;
+					updateRoseIn();
+				}}
 				class="cursor-pointer whitespace-nowrap text-xs sm:text-base"
 				>balance: {toFixed(prstgBalance)}</span
 			>
@@ -201,7 +215,10 @@
 				bind:value={desiredRose}
 			/>
 			<span
-				on:click={() => {desiredRose = roseBalance; updatePrstgIn()}}
+				on:click={() => {
+					desiredRose = roseBalance;
+					updatePrstgIn();
+				}}
 				class="cursor-pointer whitespace-nowrap text-xs sm:text-base"
 				>balance: {toFixed(roseBalance)}</span
 			>

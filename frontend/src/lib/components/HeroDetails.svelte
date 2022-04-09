@@ -1,7 +1,15 @@
 <script lang="ts">
 	import { address, getBlockTimestamp, web3 } from '$lib/ethers';
 	import { attributeMap, generateCooldown, toFixed } from '$lib/helpers';
-	import { allowances, balances, error, ethereum, heroInfos, type IHeroInfo } from '$lib/stores';
+	import {
+		allowances,
+		balances,
+		error,
+		ethereum,
+		hasError,
+		heroInfos,
+		type IHeroInfo
+	} from '$lib/stores';
 	import { BigNumber, ethers, utils } from 'ethers';
 	import { formatEther } from 'ethers/lib/utils';
 	import { onMount } from 'svelte';
@@ -40,6 +48,7 @@
 			updateData();
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -53,6 +62,7 @@
 			$balances.prestige = prstgBalance;
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
@@ -63,48 +73,53 @@
 			$allowances.prestige = ethers.constants.MaxUint256;
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 	};
 
 	const approvePrstgRose = async () => {
 		try {
-			const tx = await prstgRose.approve(legions.address, ethers.constants.MaxUint256)
-			await tx.wait()
-			$allowances.prstgRose = ethers.constants.MaxUint256
-		} catch(e) {
-			$error.push(e)
+			const tx = await prstgRose.approve(legions.address, ethers.constants.MaxUint256);
+			await tx.wait();
+			$allowances.prstgRose = ethers.constants.MaxUint256;
+		} catch (e) {
+			$error.push(e);
+			$hasError = true;
 		}
-	}
+	};
 
 	const deposit = async () => {
 		try {
-			const tx = await legions.deposit(ethers.utils.parseEther(desiredDeposit.toString()), id)
-			await tx.wait()
-			updateData()
-		} catch(e) {
-			$error.push(e)
+			const tx = await legions.deposit(ethers.utils.parseEther(desiredDeposit.toString()), id);
+			await tx.wait();
+			updateData();
+		} catch (e) {
+			$error.push(e);
+			$hasError = true;
 		}
-	}
+	};
 
 	const withdraw = async () => {
 		try {
-			const tx = await legions.withdraw(ethers.utils.parseEther(desiredWithdraw.toString()), id)
-			await tx.wait()
-			updateData()
-		} catch(e) {
-			$error.push(e)
+			const tx = await legions.withdraw(ethers.utils.parseEther(desiredWithdraw.toString()), id);
+			await tx.wait();
+			updateData();
+		} catch (e) {
+			$error.push(e);
+			$hasError = true;
 		}
-	}
+	};
 
 	const withdrawAll = async () => {
 		try {
-			const tx = await legions.withdrawAll(id)
-			await tx.wait()
-			updateData()
-		} catch(e) {
-			$error.push(e)
+			const tx = await legions.withdrawAll(id);
+			await tx.wait();
+			updateData();
+		} catch (e) {
+			$error.push(e);
+			$hasError = true;
 		}
-	}
+	};
 
 	const updateAllowance = async () => {
 		const allowance = await prstgRose.allowance($address, legions.address);
@@ -138,13 +153,14 @@
 		lastAttributeLevelCost = heroInfo;
 		pendingPrstg = _pendingPrstg;
 		estimatedLevelUpCost = estLevelUpCost;
-		blockTimestamp = await getBlockTimestamp($ethereum)
-		cooldown = await generateCooldown(positionInfo.cooldownTime, $ethereum)
+		blockTimestamp = await getBlockTimestamp($ethereum);
+		cooldown = await generateCooldown(positionInfo.cooldownTime, $ethereum);
 
 		try {
 			owner = (await legions.ownerOf(id)).toString().toLowerCase();
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 		}
 
 		$heroInfos[id] = {
@@ -220,6 +236,7 @@
 			await tx.wait();
 		} catch (e) {
 			$error.push(e);
+			$hasError = true;
 			return;
 		}
 		const [attributes, valorBalance, heroInfo] = await Promise.all([
@@ -385,7 +402,9 @@
 							bind:value={desiredDeposit}
 						/>
 						{#if prstgRoseAllowance.eq(0)}
-							<button class="btn btn-warning btn-sm" on:click={() => approvePrstgRose()}>Approve LP</button>
+							<button class="btn btn-warning btn-sm" on:click={() => approvePrstgRose()}
+								>Approve LP</button
+							>
 						{:else}
 							<button class="btn btn-warning btn-sm" on:click={() => deposit()}>Deposit LP</button>
 						{/if}
@@ -404,7 +423,8 @@
 								placeholder="withdraw LP"
 								bind:value={desiredWithdraw}
 							/>
-							<button class="btn btn-warning btn-sm" on:click={() => withdraw()}>Withdraw LP</button>
+							<button class="btn btn-warning btn-sm" on:click={() => withdraw()}>Withdraw LP</button
+							>
 						</div>
 					</div>
 					<button class="btn btn-error btn-sm" on:click={() => withdrawAll()}>withdraw ALL</button>
