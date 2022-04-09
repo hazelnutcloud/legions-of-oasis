@@ -4,6 +4,7 @@
 	import { heroInfos, type IHeroInfo } from '$lib/stores';
 	import { BigNumber, ethers } from 'ethers';
 	import { onMount } from 'svelte';
+	import { imgSrc } from '$lib/constants';
 
 	import card from '/static/hero/card.png';
 	import hero from '/static/hero/hero1.gif';
@@ -149,7 +150,7 @@
 				y="136.4"
 				width="16"
 				height="16"
-				href="/static/equipments/{heroInfo.helmet.toString()}.png"
+				href={`${imgSrc}/equipments/${heroInfo.helmet.toString()}.png`}
 			/>
 		</a>
 		<a href="/equipment/{heroInfo.chest.toString()}">
@@ -158,7 +159,7 @@
 				y="175.4"
 				width="16"
 				height="16"
-				href="/static/equipments/{heroInfo.chest.toString()}.png"
+				href={`${imgSrc}/equipments/${heroInfo.chest.toString()}.png`}
 			/>
 		</a>
 		<a href="/equipment/{heroInfo.gauntlets.toString()}">
@@ -167,7 +168,7 @@
 				y="213.4"
 				width="16"
 				height="16"
-				href="/static/equipments/{heroInfo.gauntlets.toString()}.png"
+				href={`${imgSrc}/equipments/${heroInfo.gauntlets.toString()}.png`}
 			/>
 		</a>
 		<a href="/equipment/{heroInfo.legs.toString()}">
@@ -176,7 +177,7 @@
 				y="213.4"
 				width="16"
 				height="16"
-				href="/static/equipments/{heroInfo.legs.toString()}.png"
+				href={`${imgSrc}/equipments/${heroInfo.legs.toString()}.png`}
 			/>
 		</a>
 		<a href="/equipment/{heroInfo.weapon.toString()}">
@@ -185,7 +186,7 @@
 				y="213.4"
 				width="16"
 				height="16"
-				href="/static/equipments/{heroInfo.weapon.toString()}.png"
+				href={`${imgSrc}/equipments/${heroInfo.weapon.toString()}.png`}
 			/>
 		</a>
 		<a href="/equipment/{heroInfo.talisman.toString()}">
@@ -194,7 +195,7 @@
 				y="175.1"
 				width="16"
 				height="16"
-				href="/static/equipments/{heroInfo.talisman.toString()}.png"
+				href={`${imgSrc}/equipments/${heroInfo.talisman.toString()}.png`}
 			/>
 		</a>
 		<a href="/equipment/{heroInfo.ring.toString()}">
@@ -203,7 +204,7 @@
 				y="135.8"
 				width="16"
 				height="16"
-				href="/static/equipments/{heroInfo.ring.toString()}.png"
+				href={`${imgSrc}/equipments/${heroInfo.ring.toString()}.png`}
 			/>
 		</a>
 		<text x="101" y="255.7" class="text text-right" font-size="4" fill="white">
