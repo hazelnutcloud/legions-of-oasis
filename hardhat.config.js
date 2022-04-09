@@ -1,4 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
+require('dotenv').config()
 
 // The next line is part of the sample project, you don't need it in your
 // project. It imports a Hardhat task definition, that can be used for
@@ -64,12 +65,25 @@ module.exports = {
       //   auto: false,
       //   interval: 9000
       // }
-    }
+    },
+    emerald_testnet: {
+      url: "https://testnet.emerald.oasis.dev",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    emerald_mainnet: {
+      url: "https://emerald.oasis.dev",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
   },
   paths: {
     sources: './contracts',
     tests: './test',
     cache: './cache',
     artifacts: './artifacts',
-  },  
+  },
+  mocha: {
+    timeout: 60000
+  }
 };

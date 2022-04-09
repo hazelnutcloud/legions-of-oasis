@@ -1,6 +1,7 @@
 node_modules
 .idea
 legacyContracts
+.env
 
 #Hardhat files
 cache

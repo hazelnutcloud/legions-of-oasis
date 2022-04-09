@@ -4,7 +4,7 @@ import abis from '$lib/contracts/abis.json';
 import { writable, type Writable } from 'svelte/store';
 import { balances, error } from './stores';
 
-const targetId = '0x7a69';
+const targetId = '0xa515';
 
 export const address = writable() as Writable<string>
 export const correctNetwork = writable()
@@ -67,7 +67,8 @@ export const web3 = {
 							{
 								chainId: targetId,
 								chainName: 'Oasis Emerald Testnet',
-								rpcUrls: ['https://testnet.emerald.oasis.dev']
+								rpcUrls: ['https://testnet.emerald.oasis.dev'],
+								blockExplorerUrls: ['https://testnet.explorer.emerald.oasis.dev']
 							}
 						]
 					});
