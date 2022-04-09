@@ -1,0 +1,12 @@
+[
+    {
+        "id": 0,
+        "name": "Time for adventure",
+        "contractName": "CampaignMock",
+        "valorRewards": "1000",
+        "equipmentRewards": [1, 2, 3, 4, 5, 6, 7],
+        "minLevel": 2,
+        "minPrestige": 100,
+        "campaignTime": 10
+    }
+]

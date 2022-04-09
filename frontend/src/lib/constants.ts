@@ -1,0 +1,1 @@
+export const imgSrc = "https://raw.githubusercontent.com/hazelnutcloud/legions-of-oasis-v1/master/sveltekit/static/"
