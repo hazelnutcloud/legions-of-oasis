@@ -1,9 +1,11 @@
 <script>
+import { imgSrc } from '$lib/constants';
+
     import equipmentList from '$lib/equipmentList.json'
     export let campaign;
 </script>
 <div class="card w-96 bg-base-300 shadow-xl border-2">
-    <figure class="bg-base-200"><img class="pixelated w-32" src="https://raw.githubusercontent.com/hazelnutcloud/legions-of-oasis-v1/master/sveltekit/static/equipments/{campaign.equipmentRewards[0]}.png" alt="equipment reward"></figure>
+    <figure class="bg-base-200"><img class="pixelated w-32" src={`${imgSrc}equipments/${campaign.equipmentRewards[0]}.png`} alt="equipment reward"></figure>
     <div class="card-body">
         <h2 class="card-title">#{campaign.id}: "{campaign.name.toUpperCase()}"</h2>
         <p class="font-semibold">Minimum Prestige level:</p>
