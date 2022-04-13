@@ -10,4 +10,7 @@
         -ms-interpolation-mode: nearest-neighbor;
         image-rendering: pixelated;
     }
+    .btn {
+        @apply shadow-lg
+    }
 }
