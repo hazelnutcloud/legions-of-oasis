@@ -1,4 +1,4 @@
-![Legions of Oasis logo](/frontend/static/blackLogo_1.png "Legions of Oasis")
+![Legions of Oasis logo](/LOO_fx3.png "Legions of Oasis")
 # Legions of Oasis
 [legionsofoasis.xyz](https://legionsofoasis.xyz)
 
