@@ -1,28 +1,14 @@
 {
-  "name": "hardhat-hackathon-boilerplate",
-  "version": "1.0.0",
-  "description": "A boilerplate repository to get you started with Hardhat and Ethereum development",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "hardhat test"
-  },
+  "name": "legions-of-oasis",
+  "version": "0.1.0",
+  "description": "deep liquidity by gamification",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nomiclabs/hardhat-hackathon-boilerplate.git"
+    "url": "git+https://github.com/hazelnutcloud/legions-of-oasis.git"
   },
-  "keywords": [
-    "hardhat",
-    "ethereum",
-    "hackathon"
-  ],
-  "author": "Nomic Labs",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nomiclabs/hardhat-hackathon-boilerplate/issues"
-  },
-  "homepage": "https://github.com/nomiclabs/hardhat-hackathon-boilerplate#readme",
+  "author": "Hasan Mukhlis",
+  "license": "gpl-3.0",
+  "homepage": "https://legionsofoasis.xyz",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
