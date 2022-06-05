@@ -1996,25 +1996,6 @@
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "_heroId",
-          "type": "uint256"
-        }
-      ],
-      "name": "estimateLevelUpCost",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "estimatedCost",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
           "name": "tokenId",
           "type": "uint256"
         }

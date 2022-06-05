@@ -49,6 +49,9 @@ export function attributeMap(attribute: string) {
 
 export async function generateCooldown(cooldown: BigNumber, ethereum: any): Promise<string>  {
   const timestamp = cooldown.toNumber() - await getBlockTimestamp(ethereum)
+  if (timestamp < 0) {
+    return "level up ready!"
+  }
   
   const days =  Math.floor(timestamp / 86400)
   const hours = Math.floor((timestamp % 86400) / 3600)

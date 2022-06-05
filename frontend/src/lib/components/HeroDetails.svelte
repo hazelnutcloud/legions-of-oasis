@@ -137,7 +137,6 @@
 			valorBalance,
 			heroInfo,
 			_pendingPrstg,
-			estLevelUpCost
 		] = await Promise.all([
 			legions.positionForId(id),
 			heroManager.getAttributesForHero(id),
@@ -146,13 +145,11 @@
 			valor.balanceOf($address),
 			heroManager.getHeroLastLevelAttributeCost(id),
 			legions.pendingPrestige(id),
-			legions.estimateLevelUpCost(id)
 		]);
 
 		const { name: lpName } = await legions.poolInfo(positionInfo.poolId);
 		lastAttributeLevelCost = heroInfo;
 		pendingPrstg = _pendingPrstg;
-		estimatedLevelUpCost = estLevelUpCost;
 		blockTimestamp = await getBlockTimestamp($ethereum);
 		cooldown = await generateCooldown(positionInfo.cooldownTime, $ethereum);
 
@@ -345,13 +342,7 @@
 				{toFixed(ethers.utils.formatEther(heroInfo.prestigeAmount))} PRSTG
 			</div>
 		</div>
-		<div class="detail">
-			<div>Estimated level up cost</div>
-			<div class="detail-value">
-				{toFixed(ethers.utils.formatEther(estimatedLevelUpCost))} PRSTG
-			</div>
-		</div>
-		<div class="detail flex flex-col">
+		<div class="detail flex flex-col w-full">
 			<div>Next level up</div>
 			<div class="detail-value">{cooldown}</div>
 			{#if isOwner}
@@ -369,7 +360,7 @@
 			{/if}
 		</div>
 		<div class="detail">
-			<div>PRSTG rewards multiplier</div>
+			<div>PRSTG rewards/governance multiplier</div>
 			<div class="detail-value">{rewardsMultiplier.toFixed(2)}x</div>
 		</div>
 		<div class="detail flex justify-between items-center flex-wrap gap-2">

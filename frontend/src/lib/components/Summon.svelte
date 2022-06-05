@@ -36,7 +36,7 @@
 
 	const summon = async () => {
 		try {
-			const amount = ethers.utils.parseEther(lpAmount);
+			const amount = ethers.utils.parseEther(lpAmount.toString());
 			const tx = await legions.createHeroAndDeposit($address, '0', amount);
 			await tx.wait();
 			$balances.hero = $balances.hero.add(1);

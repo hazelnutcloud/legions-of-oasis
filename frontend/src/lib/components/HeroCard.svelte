@@ -166,32 +166,21 @@
 				/>
 			</a>
 		{/if}
-		{#if heroInfo.gauntlets.toString() !== '0'}
-			<a href="/equipment/{heroInfo.gauntlets.toString()}">
+		{#if heroInfo.ring.toString() !== '0'}
+			<a href="/equipment/{heroInfo.ring.toString()}">
 				<image
 					x="37.6"
 					y="213.4"
 					width="16"
 					height="16"
-					href={`${imgSrc}/equipments/${heroInfo.gauntlets.toString()}.png`}
-				/>
-			</a>
-		{/if}
-		{#if heroInfo.legs.toString() !== '0'}
-			<a href="/equipment/{heroInfo.legs.toString()}">
-				<image
-					x="92.3"
-					y="213.4"
-					width="16"
-					height="16"
-					href={`${imgSrc}/equipments/${heroInfo.legs.toString()}.png`}
+					href={`${imgSrc}/equipments/${heroInfo.ring.toString()}.png`}
 				/>
 			</a>
 		{/if}
 		{#if heroInfo.weapon.toString() !== '0'}
 			<a href="/equipment/{heroInfo.weapon.toString()}">
 				<image
-					x="145.8"
+					x="92.3"
 					y="213.4"
 					width="16"
 					height="16"
@@ -203,21 +192,32 @@
 			<a href="/equipment/{heroInfo.talisman.toString()}">
 				<image
 					x="145.8"
-					y="175.1"
+					y="213.4"
 					width="16"
 					height="16"
 					href={`${imgSrc}/equipments/${heroInfo.talisman.toString()}.png`}
 				/>
 			</a>
 		{/if}
-		{#if heroInfo.ring.toString() !== '0'}
-			<a href="/equipment/{heroInfo.ring.toString()}">
+		{#if heroInfo.legs.toString() !== '0'}
+			<a href="/equipment/{heroInfo.legs.toString()}">
+				<image
+					x="145.8"
+					y="175.1"
+					width="16"
+					height="16"
+					href={`${imgSrc}/equipments/${heroInfo.legs.toString()}.png`}
+				/>
+			</a>
+		{/if}
+		{#if heroInfo.gauntlets.toString() !== '0'}
+			<a href="/equipment/{heroInfo.gauntlets.toString()}">
 				<image
 					x="145.8"
 					y="135.8"
 					width="16"
 					height="16"
-					href={`${imgSrc}/equipments/${heroInfo.ring.toString()}.png`}
+					href={`${imgSrc}/equipments/${heroInfo.gauntlets.toString()}.png`}
 				/>
 			</a>
 		{/if}

@@ -19,7 +19,7 @@
         <h1 class="text-5xl font-bold">ASSEMBLE YOUR <span class="text-primary">HEROES</span>,</h1>
         <h1 class="text-5xl font-bold">CONQUER <span class="text-secondary">OASIS</span>,</h1>
         <h1 class="text-5xl font-bold">CLAIM YOUR <span class="text-accent">SPOILS OF WAR</span>.</h1>
-        <p class="py-6">Legions of Oasis is a decentralised play-to-earn metaverse game set in the Oasis Emerald blockchain. Utilising DeFi at its core, the game is built around its own decentralised exchange where playable NFT characters represent shares of liquidity pools.</p>
+        <p class="py-6">Legions of Oasis is an MMORPG with an integrated DEX built on the Oasis Emerald blockchain. Utilising DeFi at its core, the game is built around its own decentralised exchange where playable NFT characters represent shares of liquidity pools.</p>
         <button class="btn btn-primary font-extrabold" on:click={() => goto("/summon")}>GET STARTED</button>
       </div>
     </div>
